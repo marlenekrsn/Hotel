@@ -10,7 +10,7 @@
 </head>
 <body>
     <h1>Hauptmenü</h1>
-    <form action="" method="get">
+    <form action="" method="post">
         <p><input type="submit" value="Registrieren"></p>
         <p><input type="submit" value="Login"></p>
         <p><input type="submit" value="Angebote"></p>
