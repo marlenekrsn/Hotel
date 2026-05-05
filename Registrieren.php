@@ -24,7 +24,7 @@
 
         <label for="nachname">Nachname</label> <input type="text" placeholder="Mustermann"><br>
 
-        <label for="adresse">Adresse</label> <input type="text" placeholder="Mustermannsstraße 1"><br>
+        <label for="strasse">Straße</label> <input type="text" placeholder="Mustermannsstraße 1"><br>
 
         <label for="postleitzahl">Postleitzahl</label> <input type="text" placeholder="1234"><br>
 
