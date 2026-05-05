@@ -1,3 +1,53 @@
+<?php
+
+    //session_start();
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        
+        $einzelzimmer =  trim($_POST["einzelzimmer"]);
+        $doppelzimmer =  trim($_POST["doppelzimmer"]);
+        $dreierzimmer =  trim($_POST["dreierzimmer"]);
+        $viererzimmer =  trim($_POST["viererzimmer"]);
+        //$preiseinzel = 
+        $datumvon =  trim($_POST["datumvon"]);
+        $datumbis =  trim($_POST["datumbis"]);
+
+        if (empty($einzelzimmer) && empty($doppelzimmer && empty($dreierzimmer) && empty($viererzimmer) && empty($datumvon) && empty($datumbis))) {
+           
+            
+
+            /*
+                require_once('dbVerbindung.php');
+
+                try {
+
+                $sql = "INSERT INTO reservierungen(anreise, abreise, gesamtpreis, einzelzimmer, doppelzimmer, dreierzimmer, viererzimmer) VALUES (:anreise, :abreise, :gesamtpreis, :einzelzimmer, :doppelzimmer, :dreierzimmer, :viererzimmer)";
+                $stmt = $pdo->prepare($sql);
+
+                if ($stmt->execute(['anreise' => $datumvon, 'abreise' => $datumbis, 'gesamtpreis' => $gesamtpreis, 'einzelzimmer' => $einzelzimmer, 'doppelzimmer' => $doppelzimmer, 'dreierzimmer' => $dreierzimmer, 'viererzimmer' => $viererzimmer,])) {
+                    //$message = "Reservierung erfolgreich <a href=\"reservierungen.php\">Zu Ihrer Reservierung</a>";
+                    header("Location: reservierungen.php");
+
+                }
+
+            } catch (PDOException $e) {
+                if ($e->getCode() == 23000) { //Code für Dublicated Entry
+
+                    $message = "Email ist bereits im System";
+
+                } else {
+
+                    $message = "Es ist ein Fehler beim Registrieren aufgetreten: " . $e->getMessage();
+
+                }
+
+            }
+            */
+        }
+
+
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -33,32 +83,36 @@
         <br>
         Pro Nacht 30,- €
         <br>
-        <label for="doppelzimmer1">Doppelzimmer mit Doppelbett</label>
-        <input type="number" id="doppelzimmer1" name="doppelzimmer1" max=10 min=0>
+        <label for="doppelzimmer">Doppelzimmer mit zwei Einzelbetten</label>
+        <input type="number" id="doppelzimmer" name="doppelzimmer" max=10 min=0>
         <br><br>
 
-        <label for="doppelzimmer2">Doppelzimmer mit zwei Einzelbetten</label>
-        <input type="number" id="doppelzimmer2" name="doppelzimmer2" max=10 min=0>
+        <b>Dreierzimmer</b>
+        <br>
+        Pro Nacht 40,- €
+        <br>
+        <label for="dreierzimmer">Dreierzimmer mit zwei Einzelbetten und einem Doppelbett</label>
+        <input type="number" id="dreierzimmer" name="dreierzimmer" max=10 min=0>
         <br><br>
 
         <b>Viererzimmer</b>
         <br>
         Pro Nacht 50,- €
         <br>
-        <label for="viererzimmer1">Viererzimmer mit einem Doppelbett und zwei Einzelbetten</label>
-        <input type="number" id="viererzimmer1" name="viererzimmer1" max=10 min=0>
+        <label for="viererzimmer">Viererzimmer mit zwei Einzelbetten und einem Doppelbett</label>
+        <input type="number" id="viererzimmer" name="viererzimmer" max=10 min=0>
         <br><br>
 
-        <label for="viererzimmer2">Viererzimmer mit zwei Stockbetten</label>
-        <input type="number" id="viererzimmer2" name="viererzimmer2" max=10 min=0>
-        <br><br>
+        <b>Zeitraum</b>
+        <br>
+        <label for="datumvon">Von Wann </label>
+        <input type="date" id="datumvon" name="datumvon">
+        <br>
+        <label for="datumbis">Bis Wann</label>
+        <input type="date" id="datumbis" name="datumbis">
+        <br>
+        wollen Sie hier bleiben?
 
-        <b>Gruppenzimmer</b>
-        <br>
-        Pro Nacht 70,- €
-        <br>
-        <label for="gruppenzimmer">Gruppenzimmer mit vier Stockbetten</label>
-        <input type="number" id="viererzimmer2" name="viererzimmer2" max=10 min=0>
         <br><br><br>
 
         <input type="submit" name="submit" id="submit" value="In den Warenkorb">
