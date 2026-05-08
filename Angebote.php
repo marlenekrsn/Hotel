@@ -7,13 +7,19 @@
         $doppelzimmer =  trim($_POST["doppelzimmer"]);
         $dreierzimmer =  trim($_POST["dreierzimmer"]);
         $viererzimmer =  trim($_POST["viererzimmer"]);
-        //$preiseinzel = 
+        $preiseinzel = 20;
+        $preisdoppel = 30;
+        $preisdreier = 40;
+        $preisvierer = 50;
         $datumvon =  trim($_POST["datumvon"]);
         $datumbis =  trim($_POST["datumbis"]);
+        //&& empty($datumvon) && empty($datumbis)
 
-        if (empty($einzelzimmer) && empty($doppelzimmer && empty($dreierzimmer) && empty($viererzimmer) && empty($datumvon) && empty($datumbis))) {
-           
-            
+        if (empty($einzelzimmer) && empty($doppelzimmer) && empty($dreierzimmer) && empty($viererzimmer)) {
+           echo "Bitte wählen Sie ein Zimmer aus!";
+        }else if(empty($einzelzimmer)){
+//!==
+        }else{
 
             /*
                 require_once('dbVerbindung.php');
@@ -43,6 +49,7 @@
             }
             */
         }
+        
 
 
     }

@@ -21,8 +21,11 @@
     <table>
     <thead>
         <tr>
-        <th>Zimmer</th>
-        <th>Personen</th>
+        <th>Einzelzimmer</th>
+        <th>Doppelzimmer</th>
+        <th>Dreierzimmer</th>
+        <th>Viererzimmer</th>
+        <th>Anzahl</th>
         <th>Datum Von</th>
         <th>Datum Bis</th>
         <th>Preis</th>
@@ -35,6 +38,9 @@
         <td>Daten 3</td>
         <td>Daten 4</td>
         <td>Daten 5</td>
+        <td>Daten 6</td>
+        <td>Daten 7</td>
+        <td>Daten 8</td>
         </tr>
     </tbody>
     </table>
