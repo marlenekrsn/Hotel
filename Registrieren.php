@@ -1,20 +1,19 @@
 <?php
-
-    //session_start();
+    session_start();
+    $message = "";
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
+    
+        $vorname = trim($_POST["vorname"]);
+        $nachname = trim($_POST["nachname"]);
+        $strasse = trim($_POST["strasse"]);
+        $plz = $_POST["plz"];   
+        $ort = trim($_POST["ort"]);
+        $email = trim($_POST["email"]);
+        $passwort = trim($_POST["passwort"]);
+        $passwort2 = trim($_POST["passwort2"]);
 
-    $vorname = trim($_POST["vorname"]);
-    $nachname = trim($_POST["nachname"]);
-    $strasse = trim($_POST["strasse"]);
-    $postleitzahl = trim($_POST["postleitzahl"]);   
-    $ort = trim($_POST["ort"]);
-    $email = trim($_POST["email"]);
-    $passwort = trim($_POST["passwort"]);
-    $passwort2 = trim($_POST["passwort2"]);
-
-        if (!empty($vorname) && !empty($nachname) && !empty($strasse) && !empty($postleitzahl) && !empty($ort) && !empty($email) && !empty($passwort) && !empty($passwort2)) {
-
+        if (!empty($vorname) && !empty($nachname) && !empty($strasse) && !empty($plz) && !empty($ort) && !empty($email) && !empty($passwort) && !empty($passwort2)) {
             if ($passwort === !$passwort2) {
                 echo 'Passwörter stimmen nicht überein';
             } else {
@@ -26,27 +25,27 @@
 
                 try {
 
-                $sql = "INSERT INTO `benutzer`( `vorname`, `nachname`, `strasse`, `postleitzahl`, `ort`, `email`, `passwort`) VALUES (:vorname, :nachname, :strasse, :postleitzahl, :ort, :email, :passwort)";
+                $sql = "INSERT INTO `benutzer`( `vorname`, `nachname`, `strasse`, `plz`, `ort`, `email`, `passwort`) VALUES ( :vorname, :nachname, :strasse, :plz, :ort, :email, :passwort)";
                 $stmt = $pdo->prepare($sql);
 
-                if ($stmt->execute(['vorname' => $vorname, 'nachname' => $nachname, 'strasse' => $strasse, 'postleitzahl' => $postleitzahl, 'ort' => $ort, 'email' => $email, 'passwort' => $passwordHash,])) {
-                    //$message = "Registrierung erfolgreich <a href=\"anmeldeformular.php\">Zum Login</a>";
-                    header("Location: anmeldeformular.php");
+                    if ($stmt->execute([':vorname' => $vorname, ':nachname' => $nachname, ':strasse' => $strasse, ':plz' => $plz, ':ort' => $ort, ':email' => $email, ':passwort' => $passwordHash,])) {
+                        $message = "Registrierung erfolgreich <a href=\"Login.php\">Zum Login</a>";
+                        header("Location: Login.php");
+
+                    }
+
+                } catch (PDOException $e) {
+                    if ($e->getCode() == 23000) { //Code für Dublicated Entry
+
+                        echo"Email ist bereits im System";
+
+                    } else {
+
+                        $message = "Es ist ein Fehler beim Registrieren aufgetreten: " . $e->getMessage();
+
+                    }
 
                 }
-
-            } catch (PDOException $e) {
-                if ($e->getCode() == 23000) { //Code für Dublicated Entry
-
-                    $message = "Email ist bereits im System";
-
-                } else {
-
-                    $message = "Es ist ein Fehler beim Registrieren aufgetreten: " . $e->getMessage();
-
-                }
-
-            }
 
 
             }
@@ -80,7 +79,7 @@
 
         <label for="strasse">Straße</label> <input type="text" placeholder="Mustermannsstraße 1" name="strasse" required><br>
 
-        <label for="postleitzahl">Postleitzahl</label> <input type="text" placeholder="1234" name="postleitzahl" required><br>
+        <label for="plz">Postleitzahl</label> <input type="text" placeholder="1234" name="plz" required><br>
 
         <label for="ort">Ort</label> <input type="text" placeholder="Musterstadt" name="ort" required><br>
 
@@ -90,7 +89,7 @@
         <input type="password" name="passwort" placeholder="Passwort" required>
         <input type="password" name="passwort2" placeholder="Passwort wiederholen" required>
 
-        <input type="submit" value="Registrieren" name="registrieren">
+        <input type="submit" value="Registrieren" name="submit">
 
     </form>
 </body>
