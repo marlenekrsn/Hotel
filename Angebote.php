@@ -1,6 +1,7 @@
 <?php
 
-    //session_start();
+    session_start();
+
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $einzelzimmer =  trim($_POST["einzelzimmer"]);
@@ -13,45 +14,66 @@
         $preisvierer = 50;
         $datumvon =  trim($_POST["datumvon"]);
         $datumbis =  trim($_POST["datumbis"]);
-        //&& empty($datumvon) && empty($datumbis)
+        
 
-        if (empty($einzelzimmer) && empty($doppelzimmer) && empty($dreierzimmer) && empty($viererzimmer)) {
-           echo "Bitte wählen Sie ein Zimmer aus!";
-        }else if(empty($einzelzimmer)){
-//!==
+        if (empty($_SESSION['bid'])) {
+            echo "Bitte melden Sie sich an!";
+
         }else{
+            if(empty($datumvon) || empty($datumbis)){
+                echo"Bitte geben Sie alle Daten ein!";
+            }else{
 
-            /*
-                require_once('dbVerbindung.php');
+                if (empty($einzelzimmer) && empty($doppelzimmer) && empty($dreierzimmer) && empty($viererzimmer)) {
+                    echo "Bitte füllen Sie alles aus!";
+                }else{
+                    if (empty($einzelzimmer)) {
+                        $einzelzimmer = 0;
+                    }if(empty($doppelzimmer)) {
+                        $doppelzimmer = 0;
+                    }if(empty($dreierzimmer)) {
+                        $dreierzimmer = 0;
+                    }if(empty($viererzimmer)) {
+                        $viererzimmer = 0;
+                    }
+                    $gesamtpreis = 0;
+                    $gesamtpreis = ($einzelzimmer * $preiseinzel) + ($doppelzimmer * $preisdoppel) + ($dreierzimmer * $preisdreier) + ($viererzimmer * $preisvierer);
+                    
+                    //nächstes Mal von Datenbank speichern
+                    $_SESSION['anreise'] = $datumvon;
+                    $_SESSION['abreise'] = $datumbis;
+                    $_SESSION['gesamtpreis'] = $gesamtpreis;
+                    $_SESSION['einzelzimmer'] = $einzelzimmer;
+                    $_SESSION['doppelzimmer'] = $doppelzimmer;
+                    $_SESSION['dreierzimmer'] = $dreierzimmer;
+                    $_SESSION['viererzimmer'] = $viererzimmer;
+                
+                    //!==
+                    require_once('dbVerbindung.php');
 
-                try {
+                    try {
 
-                $sql = "INSERT INTO reservierungen(anreise, abreise, gesamtpreis, einzelzimmer, doppelzimmer, dreierzimmer, viererzimmer) VALUES (:anreise, :abreise, :gesamtpreis, :einzelzimmer, :doppelzimmer, :dreierzimmer, :viererzimmer)";
-                $stmt = $pdo->prepare($sql);
+                        $sql = "INSERT INTO reservierungen(bid, anreise, abreise, gesamtpreis, einzelzimmer, doppelzimmer, dreierzimmer, viererzimmer) VALUES (:bid, :anreise, :abreise, :gesamtpreis, :einzelzimmer, :doppelzimmer, :dreierzimmer, :viererzimmer)";
+                        $stmt = $pdo->prepare($sql);
 
-                if ($stmt->execute(['anreise' => $datumvon, 'abreise' => $datumbis, 'gesamtpreis' => $gesamtpreis, 'einzelzimmer' => $einzelzimmer, 'doppelzimmer' => $doppelzimmer, 'dreierzimmer' => $dreierzimmer, 'viererzimmer' => $viererzimmer,])) {
-                    //$message = "Reservierung erfolgreich <a href=\"reservierungen.php\">Zu Ihrer Reservierung</a>";
-                    header("Location: reservierungen.php");
+                        $stmt->execute(["bid" =>$_SESSION['bid'], 'anreise' => $datumvon, 'abreise' => $datumbis, 'gesamtpreis' => $gesamtpreis, 'einzelzimmer' => $einzelzimmer, 'doppelzimmer' => $doppelzimmer, 'dreierzimmer' => $dreierzimmer, 'viererzimmer' => $viererzimmer]);
+                            //$message = "Reservierung erfolgreich <a href=\"reservierungen.php\">Zu Ihrer Reservierung</a>";
+                            
+                        echo "Erfolgreich in den Warenkorb hinzugefügt"; 
 
-                }
-
-            } catch (PDOException $e) {
-                if ($e->getCode() == 23000) { //Code für Dublicated Entry
-
-                    $message = "Email ist bereits im System";
-
-                } else {
-
-                    $message = "Es ist ein Fehler beim Registrieren aufgetreten: " . $e->getMessage();
+                    
+                    } catch (PDOException $e) {
+                        echo $e->getMessage();
+                        die("FEHLER beim Speichern der Daten in der Datenbank!!");
+                    }
 
                 }
 
             }
-            */
+                
+            
         }
         
-
-
     }
 ?>
 
@@ -61,6 +83,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angebote</title>
+    <link rel="stylesheet" href="style_angebote.css">
 </head>
 <nav>
     <form action="" method="post">
