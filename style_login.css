@@ -1,0 +1,128 @@
+/* --- Basis-Einstellungen (Hotel Kamel Farben) --- */
+:root {
+    --clr-sky-light: #C0C8D6;    /* Blau aus dem Logo */
+    --clr-camel-beige: #D5BCA0; /* Kamel-Beige */
+    --clr-hump-brown: #9E7D5C;  /* Dunkleres Braun */
+    --clr-text-deep: #2A2E35;   /* Dunkler Text */
+    --radius-round: 50px;
+    --radius-box: 20px;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--clr-sky-light);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--clr-text-deep);
+}
+
+/* Der Login-Container (Weiße Karte) */
+.login-card {
+    background: white;
+    padding: 50px 35px;
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+h3 {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    color: var(--clr-text-deep);
+    line-height: 1.4;
+}
+
+/* Formular Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Kleiner Abstand zwischen Label und Input */
+    text-align: left; /* Labels linksbündig */
+}
+
+/* Beschriftungen (Labels) */
+label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    color: var(--clr-hump-brown);
+}
+
+/* Eingabefelder (E-Mail & Passwort) */
+input[type="email"], 
+input[type="password"],
+input[type="passwort"] { /* Falls dein id/type "passwort" heißt */
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #f0f2f5;
+    border-radius: 15px;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box; /* Wichtig für die Breite */
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--clr-camel-beige);
+    outline: none;
+}
+
+/* Der "Anmelden" Button */
+input[type="submit"] {
+    margin-top: 25px;
+    width: 100%;
+    background-color: var(--clr-camel-beige);
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: var(--radius-round);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+input[type="submit"]:hover {
+    background-color: var(--clr-hump-brown);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+/* Der "Zurück" Button (oben in der Nav) */
+nav {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+#zurueck {
+    background-color: transparent !important;
+    color: var(--clr-text-deep) !important;
+    border: 2px solid var(--clr-hump-brown) !important;
+    padding: 8px 20px !important;
+    width: auto !important;
+    border-radius: var(--radius-round) !important;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#zurueck:hover {
+    background-color: var(--clr-hump-brown) !important;
+    color: white !important;
+}
+
+/* Fehlermeldungen (falls vorhanden) */
+.error {
+    color: #d9534f;
+    background: #f9ebeb;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}

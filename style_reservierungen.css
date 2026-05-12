@@ -1,0 +1,88 @@
+/* --- Hotel Kamel Reservierungs-Übersicht Update --- */
+:root {
+    --clr-sky: #C0C8D6;
+    --clr-beige: #D5BCA0;
+    --clr-brown: #9E7D5C;
+    --clr-dark: #2A2E35;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--clr-sky);
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Zentriert die Karte vertikal auf der Seite */
+    min-height: 100vh;
+}
+
+.res-container {
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    width: 100%;
+    max-width: 1100px; 
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+/* 1. ÜBERSCHRIFT: Zentriert und kleinere Schrift */
+h1 {
+    text-align: center;
+    color: var(--clr-dark);
+    margin-bottom: 35px;
+    font-size: 1.6rem; /* Kleiner als vorher */
+    font-weight: 700;
+}
+
+/* Tabellen-Styling */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+thead th {
+    background-color: var(--clr-beige);
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f5f5f5;
+    color: var(--clr-dark);
+    font-size: 0.9rem;
+}
+
+tbody tr:hover td {
+    background-color: #f9f9f9;
+}
+
+/* Zurück Button oben links */
+nav {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+#zurueck {
+    background: white;
+    border: 2px solid var(--clr-brown);
+    color: var(--clr-brown);
+    padding: 8px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#zurueck:hover {
+    background: var(--clr-brown);
+    color: white;
+}
