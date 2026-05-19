@@ -14,6 +14,10 @@
         $preisvierer = 50;
         $datumvon =  trim($_POST["datumvon"]);
         $datumbis =  trim($_POST["datumbis"]);
+        $start = new DateTime($datumvon);
+        $end = new DateTime($datumbis);
+        $diff = $start->diff($end);
+        //echo $diff->days;
         
 
         if (empty($_SESSION['bid'])) {
@@ -37,7 +41,9 @@
                         $viererzimmer = 0;
                     }
                     $gesamtpreis = 0;
-                    $gesamtpreis = ($einzelzimmer * $preiseinzel) + ($doppelzimmer * $preisdoppel) + ($dreierzimmer * $preisdreier) + ($viererzimmer * $preisvierer);
+                    
+
+                    $gesamtpreis = (($einzelzimmer * $preiseinzel) + ($doppelzimmer * $preisdoppel) + ($dreierzimmer * $preisdreier) + ($viererzimmer * $preisvierer)) * $diff->days;
                     
                     //nächstes Mal von Datenbank speichern
                     $_SESSION['anreise'] = $datumvon;
@@ -59,7 +65,7 @@
                         $stmt->execute(["bid" =>$_SESSION['bid'], 'anreise' => $datumvon, 'abreise' => $datumbis, 'gesamtpreis' => $gesamtpreis, 'einzelzimmer' => $einzelzimmer, 'doppelzimmer' => $doppelzimmer, 'dreierzimmer' => $dreierzimmer, 'viererzimmer' => $viererzimmer]);
                             //$message = "Reservierung erfolgreich <a href=\"reservierungen.php\">Zu Ihrer Reservierung</a>";
                             
-                        echo "Erfolgreich in den Warenkorb hinzugefügt"; 
+                        echo "Erfolgreich gebucht!"; 
 
                     
                     } catch (PDOException $e) {
@@ -145,7 +151,7 @@
 
         <br><br><br>
 
-        <input type="submit" name="submit" id="submit" value="In den Warenkorb">
+        <input type="submit" name="submit" id="submit" value="Buchen">
 
     </form>
     
