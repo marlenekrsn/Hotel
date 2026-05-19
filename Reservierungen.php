@@ -1,3 +1,29 @@
+<?php
+session_start();
+
+
+
+if (empty($_SESSION['bid'])) {
+            echo "Bitte melden Sie sich an!";
+            die(" <a href=\"login.php\"> Zum Login</a>");
+}else{
+
+    require_once("dbVerbindung.php");
+
+    $sql = "SELECT benutzer.vorname, benutzer.nachname, 
+                reservierungen.einzelzimmer, reservierungen.doppelzimmer, 
+                reservierungen.dreierzimmer, reservierungen.viererzimmer, 
+                reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis 
+            FROM reservierungen 
+            INNER JOIN benutzer ON reservierungen.bid = benutzer.bid 
+            WHERE reservierungen.bid = :bid";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['bid' => $_SESSION["bid"]]);
+    $reservierungen = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+}
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -17,7 +43,6 @@
     ?>
 </nav>
 <body>
-    (hier dann if, ob Hotelinhaber angemeldet, oder einfach Kunde)
     <h1>Ihre Reservierung/en</h1>
 
     <table>
@@ -35,17 +60,19 @@
         </tr>
     </thead>
     <tbody>
+        <?php foreach ($reservierungen as $row): ?>
         <tr>
-        <td>Daten 1</td>
-        <td>Daten 2</td>
-        <td>Daten 3.1</td>
-        <td>Daten 3.2</td>
-        <td>Daten 3.3</td>
-        <td>Daten 3.4</td>
-        <td>Daten 4</td>
-        <td>Daten 5</td>
-        <td>Daten 6</td>
+            <td><?=($row["vorname"])?></td>
+            <td><?=($row["nachname"])?></td>
+            <td><?=($row["einzelzimmer"])?></td>
+            <td><?=($row["doppelzimmer"])?></td>
+            <td><?=($row["dreierzimmer"])?></td>
+            <td><?=($row["viererzimmer"])?></td>
+            <td><?=($row["anreise"])?></td>
+            <td><?=($row["abreise"])?></td>
+            <td><?=($row["gesamtpreis"])?></td>
         </tr>
+        <?php endforeach; ?>
     </tbody>
     </table>
 </body>

@@ -8,8 +8,6 @@
             header("Location: Login.php");
         } elseif (isset($_POST['Angebote'])) {
             header("Location: Angebote.php");
-        } elseif (isset($_POST['Warenkorb'])) {
-            header("Location: Warenkorb.php");
         } elseif (isset($_POST['Reservierungen'])) {
             header("Location: Reservierungen.php");
         }
@@ -50,7 +48,6 @@
         <p><input type="submit" name="Registrieren" value="Registrieren"></p>
         <p><input type="submit" name="Login" value="Login"></p>
         <p><input type="submit" name="Angebote" value="Angebote"></p>
-        <p><input type="submit" name="Warenkorb" value="Warenkorb"></p>
         <p><input type="submit" name="Reservierungen" value="Reservierungen"></p>
     </form>
 </body>
