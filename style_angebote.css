@@ -1,0 +1,148 @@
+/* --- Hotel Kamel Angebote Design --- */
+:root {
+    --clr-sky: #C0C8D6;
+    --clr-beige: #D5BCA0;
+    --clr-brown: #9E7D5C;
+    --clr-dark: #2A2E35;
+    --radius: 20px;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--clr-sky);
+    margin: 0;
+    padding: 60px 20px;
+    color: var(--clr-dark);
+}
+
+.offers-container {
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+}
+
+/* Zimmer-Cards Layout */
+.room-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Zwei Spalten */
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.room-card {
+    background: #fdfdfd;
+    border: 2px solid #f0f2f5;
+    padding: 20px;
+    border-radius: var(--radius);
+    transition: transform 0.3s ease;
+}
+
+.room-card:hover {
+    border-color: var(--clr-beige);
+    transform: translateY(-5px);
+}
+
+.room-card b {
+    display: block;
+    font-size: 1.2rem;
+    color: var(--clr-brown);
+    margin-bottom: 5px;
+}
+
+.price-tag {
+    font-weight: 700;
+    color: var(--clr-dark);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.room-card label {
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* Input Styling */
+input[type="number"] {
+    width: 60px;
+    padding: 8px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Zeitraum Bereich */
+.timeframe-box {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: var(--radius);
+    text-align: center;
+    margin-top: 30px;
+}
+
+.timeframe-box b {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.date-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+input[type="date"] {
+    padding: 10px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-family: inherit;
+}
+
+/* Warenkorb Button */
+#submit {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 40px auto 0 auto;
+    background-color: var(--clr-brown);
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#submit:hover {
+    background-color: var(--clr-dark);
+}
+
+/* Zurück Button */
+nav {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+#zurueck {
+    background: white;
+    border: 2px solid var(--clr-brown);
+    color: var(--clr-brown);
+    padding: 8px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+}

@@ -60,6 +60,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrieren</title>
+    <link rel="stylesheet" href="style_registrieren.css">
 </head>
 <nav>
     <form action="" method="post">

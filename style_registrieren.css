@@ -1,0 +1,156 @@
+/* --- Vollständige Hotel Kamel Registrierung --- */
+:root {
+    --clr-sky-light: #C0C8D6;
+    --clr-camel-beige: #D5BCA0;
+    --clr-hump-brown: #9E7D5C;
+    --clr-text-deep: #2A2E35;
+    --radius-round: 50px;
+    --radius-box: 20px;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--clr-sky-light);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* Die weiße Karte */
+.registration-card {
+    background: white;
+    padding: 50px 40px;
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+h2 {
+    color: var(--clr-text-deep);
+    margin-bottom: 40px; /* Abstand nach der Überschrift */
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* Das Grid-Layout für die Eingabefelder */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* VERTIKALER ABSTAND ZWISCHEN DEN FELDERN (30px) */
+    gap: 30px 20px; 
+    text-align: left;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    color: var(--clr-hump-brown);
+}
+
+input {
+    padding: 14px;
+    border: 2px solid #f0f2f5;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+input:focus {
+    border-color: var(--clr-camel-beige);
+    outline: none;
+}
+
+/* DER REGISTRIEREN BUTTON */
+.btn-submit {
+    grid-column: span 2;
+    width: 80%;
+    /* MASSIVER ABSTAND NACH OBEN (60px), damit er frei steht */
+    margin: 60px auto 20px auto; 
+    
+    background-color: var(--clr-camel-beige);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: var(--radius-round);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: var(--clr-hump-brown);
+    transform: translateY(-2px);
+}
+
+/* Zurück-Button oben links */
+nav {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+#zurueck {
+    background: white;
+    border: 2px solid var(--clr-hump-brown);
+    color: var(--clr-hump-brown);
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+#zurueck:hover {
+    background: var(--clr-hump-brown);
+    color: white;
+}
+
+/* Fehlermeldungen */
+.message.error {
+    grid-column: span 2;
+    background: #f9ebeb;
+    color: #d9534f;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Erzeugt Abstand zwischen den Zeilen der Eingabefelder */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px; /* Erzwingt Platz nach unten zu jedem Feld */
+}
+
+/* Der große Registrieren-Button am Ende */
+.btn-submit {
+    grid-column: span 2;
+    width: 65%;
+    /* Der erste Wert (80px) ist der Abstand nach OBEN zum letzten Passwortfeld */
+    margin: 80px auto 30px auto !important; 
+    
+    background-color: #D5BCA0;
+    color: white;
+    padding: 16px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    display: block;
+}

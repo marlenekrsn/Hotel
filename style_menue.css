@@ -1,0 +1,121 @@
+/* --- Basis-Einstellungen (Hotel Kamel Farben) --- */
+:root {
+    --clr-sky-light: #C0C8D6;
+    --clr-camel-beige: #D5BCA0;
+    --clr-hump-brown: #9E7D5C;
+    --clr-text-deep: #2A2E35;
+    --radius-round: 50px;
+    --radius-box: 20px;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--clr-sky-light);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--clr-text-deep);
+}
+
+/* Der Haupt-Container (weißes Feld) */
+body > div, 
+.menu-card { /* Falls du ein div drumherum baust */
+    background: white;
+    padding: 50px 30px;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Überschrift */
+h1 {
+    font-size: 2.2rem;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+/* Willkommen Gast Bereich - ENTQUETSCHT */
+p {
+    margin: 0; /* Entfernt Standard-Abstände */
+}
+
+/* Der spezifische Willkommenstext */
+body > p, 
+.welcome-text {
+    background-color: #f0f2f5;
+    padding: 15px;
+    margin: 20px 0 40px 0 !important; /* Viel Platz nach oben und unten */
+    border-radius: var(--radius-box);
+    color: var(--clr-hump-brown);
+    font-weight: 600;
+    display: block;
+}
+
+/* Das Formular mit den Buttons */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Erzeugt sauberen Abstand zwischen den Buttons */
+}
+
+/* Buttons weg vom hässlichen Standard-Look */
+input[type="submit"] {
+    width: 100%;
+    background-color: var(--clr-camel-beige);
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: var(--radius-round);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+input[type="submit"]:hover {
+    background-color: var(--clr-hump-brown);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+/* Abmelden Button (oben in der Nav) */
+nav {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#abmelden {
+    background-color: transparent !important;
+    color: var(--clr-text-deep) !important;
+    border: 2px solid var(--clr-hump-brown) !important;
+    padding: 8px 20px !important;
+    width: auto !important;
+    font-size: 0.8rem !important;
+}
+
+#abmelden:hover {
+    background-color: var(--clr-hump-brown) !important;
+    color: white !important;
+}
+
+/* Das Formular, das die Menü-Buttons enthält */
+form {
+    display: flex;
+    flex-direction: column;
+    /* Dieser Wert bestimmt den Platz ZWISCHEN den Buttons */
+    gap: 30px !important; 
+    margin-top: 40px;
+}
+
+/* Die Buttons im Menü selbst */
+input[type="submit"] {
+    margin-bottom: 10px; /* Zusätzliche Sicherheit für den Abstand */
+}
