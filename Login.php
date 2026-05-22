@@ -53,7 +53,7 @@
         header('Location: menue.php');
 
     } else {
-        echo"Benutzername oder Passwort falsch.";
+        $error_msg = "E-Mail oder Passwort falsch.";
         $messageType = "error";
     }
 
@@ -61,29 +61,67 @@
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login - Hotel Kamel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style_login.css">
 </head>
-<nav>
-    <form action="" method="post">
-        <input type="submit" value="Zurück" id="zurueck" name="zurueck">
-    </form>
-    <?php
-        if(isset($_POST["zurueck"])){
-            header("location:Menue.php");
-        }
-    ?>
-</nav>
 <body>
-    <form action="" method="post">
-    <h3>Bitte geben Sie folgende Informationen ein, um sich anzumelden</h3>
-    <label for="email">Email</label> <input type="email" name="email" id="email" placeholder="maxmustermann@email.com"><br>
-    <label for="passwort">Passwort</label> <input type="passwort" name="passwort" id="passwort"><br>
-    <input type="submit" value="Anmelden">
-</form>
+    <header class="header-nav">
+        <form action="" method="post" class="nav-form">
+            <button type="submit" id="zurueck" name="zurueck" class="btn-back">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Zurück
+            </button>
+        </form>
+        <?php
+            if(isset($_POST["zurueck"])){
+                header("location:Menue.php");
+            }
+        ?>
+    </header>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="hotel-logo">
+                <span class="logo-icon">🐫</span>
+                <h2>Hotel Kamel</h2>
+                <div class="logo-divider"></div>
+            </div>
+            
+            <h3>Willkommen zurück</h3>
+            <p class="subtitle">Melden Sie sich an, um Ihren Aufenthalt zu verwalten.</p>
+
+            <?php if (isset($error_msg)): ?>
+                <div class="error-box">
+                    <span class="error-icon">⚠️</span>
+                    <span class="error-text"><?= htmlspecialchars($error_msg) ?></span>
+                </div>
+            <?php endif; ?>
+
+            <form action="" method="post" class="login-form">
+                <div class="input-group">
+                    <label for="email">E-Mail-Adresse</label>
+                    <input type="email" name="email" id="email" placeholder="maxmustermann@email.com" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="passwort">Passwort</label>
+                    <input type="password" name="passwort" id="passwort" placeholder="Passwort eingeben" required>
+                </div>
+                
+                <button type="submit" class="btn-submit">Anmelden</button>
+            </form>
+            
+            <div class="card-footer">
+                <p>Noch kein Mitglied? <a href="Registrieren.php">Jetzt registrieren</a></p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
