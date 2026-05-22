@@ -1,148 +1,294 @@
-/* --- Hotel Kamel Angebote Design --- */
+
 :root {
-    --clr-sky: #C0C8D6;
-    --clr-beige: #D5BCA0;
-    --clr-brown: #9E7D5C;
-    --clr-dark: #2A2E35;
-    --radius: 20px;
+    /* Color Palette - Desert Oasis Luxury */
+    --clr-bg: #f5f1ea;                 /* Soft alabaster warm sand */
+    --clr-surface: #ffffff;            /* Card surface */
+    --clr-primary: #c5a47e;            /* Luxe gold / camel beige */
+    --clr-primary-dark: #9e7d5c;       /* Hump brown / accent dark gold */
+    --clr-primary-light: #f1ebd9;      /* Light sand glow */
+    --clr-text-main: #2b2927;          /* Deep charcoal */
+    --clr-text-muted: #736c65;         /* Warm grey */
+    --clr-border: #e3dec9;             /* Soft border */
+    
+    /* Typography */
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Montserrat', sans-serif;
+    
+    /* Layout & Effects */
+    --radius-round: 50px;
+    --radius-card: 24px;
+    --radius-input: 12px;
+    --shadow-md: 0 15px 35px rgba(158, 125, 92, 0.12);
+    --shadow-lg: 0 25px 50px rgba(158, 125, 92, 0.18);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: var(--clr-sky);
-    margin: 0;
-    padding: 60px 20px;
-    color: var(--clr-dark);
-}
-
-.offers-container {
-    background: white;
-    padding: 40px;
-    border-radius: 30px;
-    max-width: 900px;
-    margin: 0 auto;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.2rem;
-}
-
-/* Zimmer-Cards Layout */
-.room-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Zwei Spalten */
-    gap: 25px;
-    margin-bottom: 40px;
-}
-
-.room-card {
-    background: #fdfdfd;
-    border: 2px solid #f0f2f5;
-    padding: 20px;
-    border-radius: var(--radius);
-    transition: transform 0.3s ease;
-}
-
-.room-card:hover {
-    border-color: var(--clr-beige);
-    transform: translateY(-5px);
-}
-
-.room-card b {
-    display: block;
-    font-size: 1.2rem;
-    color: var(--clr-brown);
-    margin-bottom: 5px;
-}
-
-.price-tag {
-    font-weight: 700;
-    color: var(--clr-dark);
-    margin-bottom: 10px;
-    display: block;
-}
-
-.room-card label {
-    font-size: 0.9rem;
-    display: block;
-    margin-bottom: 15px;
-}
-
-/* Input Styling */
-input[type="number"] {
-    width: 60px;
-    padding: 8px;
-    border: 2px solid #eee;
-    border-radius: 10px;
-    text-align: center;
-}
-
-/* Zeitraum Bereich */
-.timeframe-box {
-    background: #f8f9fa;
-    padding: 30px;
-    border-radius: var(--radius);
-    text-align: center;
-    margin-top: 30px;
-}
-
-.timeframe-box b {
-    display: block;
-    margin-bottom: 20px;
-    font-size: 1.1rem;
-}
-
-.date-inputs {
+    font-family: var(--font-body);
+    background: radial-gradient(circle at 10% 20%, rgb(242, 235, 221) 0%, rgb(231, 220, 201) 90.1%);
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
+    color: var(--clr-text-main);
+    padding: 60px 20px;
+    position: relative;
+    overflow-x: hidden;
 }
 
-input[type="date"] {
-    padding: 10px;
-    border: 2px solid #eee;
-    border-radius: 10px;
-    font-family: inherit;
+/* Decorative Desert Wave Orbs */
+body::before, body::after {
+    content: '';
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(197, 164, 126, 0.12) 0%, rgba(245, 241, 234, 0) 70%);
+    z-index: 0;
+    pointer-events: none;
 }
 
-/* Warenkorb Button */
-#submit {
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    margin: 40px auto 0 auto;
-    background-color: var(--clr-brown);
-    color: white;
-    border: none;
-    padding: 18px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+body::before {
+    top: -200px;
+    left: -200px;
 }
 
-#submit:hover {
-    background-color: var(--clr-dark);
+body::after {
+    bottom: -200px;
+    right: -200px;
 }
 
-/* Zurück Button */
+/* Header Navigation (Back Button) */
 nav {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 24px;
+    left: 24px;
+    z-index: 10;
 }
 
 #zurueck {
-    background: white;
-    border: 2px solid var(--clr-brown);
-    color: var(--clr-brown);
-    padding: 8px 20px;
-    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    color: var(--clr-text-main);
+    padding: 10px 20px;
+    border-radius: var(--radius-round);
     cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    transition: var(--transition);
+}
+
+#zurueck:hover {
+    background-color: var(--clr-primary-dark);
+    border-color: var(--clr-primary-dark);
+    color: white;
+    box-shadow: 0 6px 15px rgba(158, 125, 92, 0.25);
+    transform: translateY(-1px);
+}
+
+/* Style direct PHP echoes that appear at the top of the body */
+body > text, body {
+    /* Style anonymous flex item text nodes */
+    font-size: 1.05rem;
+    text-align: center;
+}
+
+/* H1 Heading */
+h1 {
+    font-family: var(--font-heading);
+    font-size: 2.4rem;
+    color: var(--clr-primary-dark);
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 40px;
+    z-index: 1;
+}
+
+/* Main Form Card */
+body > form {
+    background: var(--clr-surface);
+    padding: 50px 40px;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 650px;
+    z-index: 1;
+}
+
+/* Cleans up legacy layout <br> tags */
+form br {
+    display: none;
+}
+
+/* Room Section Titles (b tags) */
+form b {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--clr-primary-dark);
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 2px;
+}
+
+form b:first-of-type {
+    margin-top: 0;
+}
+
+/* Price labels (raw text nodes that flow after b) */
+/* We style the text directly after the B element by inheriting parent rules, 
+   but we can also style the label and input sizes to position them beautifully. */
+
+/* Descriptions / Labels */
+form label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--clr-text-muted);
+    margin-top: 6px;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+/* Inputs for room count (number) */
+form input[type="number"] {
+    display: block;
+    width: 100%;
+    max-width: 120px;
+    padding: 12px 16px;
+    border: 1px solid var(--clr-border);
+    background-color: #faf9f6;
+    border-radius: var(--radius-input);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--clr-text-main);
+    transition: var(--transition);
+    outline: none;
+    margin: 0 auto 25px;
+    text-align: center;
+}
+
+form input[type="number"]:focus {
+    border-color: var(--clr-primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(197, 164, 126, 0.15);
+}
+
+/* Special styling for the Zeitraum (Timeframe) section */
+form b:last-of-type {
+    border-top: 1px dashed var(--clr-border);
+    padding-top: 25px;
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+
+/* Labels inside timeframe */
+form b:last-of-type ~ label {
+    display: inline-block;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.8px;
+    color: var(--clr-text-main);
+    margin-top: 15px;
+    margin-bottom: 6px;
+}
+
+/* Date Input fields */
+form input[type="date"] {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    padding: 12px 16px;
+    border: 1px solid var(--clr-border);
+    background-color: #faf9f6;
+    border-radius: var(--radius-input);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--clr-text-main);
+    transition: var(--transition);
+    outline: none;
+    margin: 0 auto 10px;
+    text-align: center;
+}
+
+form input[type="date"]:focus {
+    border-color: var(--clr-primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(197, 164, 126, 0.15);
+}
+
+/* Style for the question text "wollen Sie hier bleiben?" */
+form input[type="date"] + label + input[type="date"] + label {
+    /* selects elements after date input */
+    font-style: italic;
+    color: var(--clr-text-muted);
+}
+
+/* Submit/Book Button */
+#submit {
+    margin-top: 40px;
+    width: 100%;
+    background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-primary-dark) 100%);
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    border-radius: var(--radius-round);
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(158, 125, 92, 0.25);
+    transition: var(--transition);
+}
+
+#submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(158, 125, 92, 0.35);
+    filter: brightness(1.05);
+}
+
+#submit:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(158, 125, 92, 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    form:not(.nav-form) {
+        padding: 40px 24px;
+    }
+    
+    h1 {
+        font-size: 1.9rem;
+        margin-top: 50px;
+    }
+    
+    nav {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-bottom: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+    
+    body {
+        justify-content: flex-start;
+        padding-top: 10px;
+    }
 }

@@ -1,121 +1,358 @@
-/* --- Basis-Einstellungen (Hotel Kamel Farben) --- */
+
 :root {
-    --clr-sky-light: #C0C8D6;
-    --clr-camel-beige: #D5BCA0;
-    --clr-hump-brown: #9E7D5C;
-    --clr-text-deep: #2A2E35;
+    
+    --clr-bg: #f5f1ea;                 
+    --clr-surface: #ffffff;            
+    --clr-primary: #c5a47e;            
+    --clr-primary-dark: #9e7d5c;       
+    --clr-primary-light: #f1ebd9;      
+    --clr-text-main: #2b2927;          
+    --clr-text-muted: #736c65;         
+    --clr-border: #e3dec9;             
+    
+    
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Montserrat', sans-serif;
+    
+    
     --radius-round: 50px;
-    --radius-box: 20px;
+    --radius-card: 24px;
+    --radius-input: 12px;
+    --shadow-md: 0 15px 35px rgba(158, 125, 92, 0.12);
+    --shadow-lg: 0 25px 50px rgba(158, 125, 92, 0.18);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: var(--clr-sky-light);
-    margin: 0;
+    font-family: var(--font-body);
+    background: radial-gradient(circle at 10% 20%, rgb(242, 235, 221) 0%, rgb(231, 220, 201) 90.1%);
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    color: var(--clr-text-deep);
+    color: var(--clr-text-main);
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
 }
 
-/* Der Haupt-Container (weißes Feld) */
-body > div, 
-.menu-card { /* Falls du ein div drumherum baust */
-    background: white;
-    padding: 50px 30px;
-    border-radius: 30px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-}
 
-/* Überschrift */
-h1 {
-    font-size: 2.2rem;
-    margin: 0 0 10px 0;
-    font-weight: 700;
-}
-
-/* Willkommen Gast Bereich - ENTQUETSCHT */
-p {
-    margin: 0; /* Entfernt Standard-Abstände */
-}
-
-/* Der spezifische Willkommenstext */
-body > p, 
-.welcome-text {
-    background-color: #f0f2f5;
-    padding: 15px;
-    margin: 20px 0 40px 0 !important; /* Viel Platz nach oben und unten */
-    border-radius: var(--radius-box);
-    color: var(--clr-hump-brown);
-    font-weight: 600;
-    display: block;
-}
-
-/* Das Formular mit den Buttons */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Erzeugt sauberen Abstand zwischen den Buttons */
-}
-
-/* Buttons weg vom hässlichen Standard-Look */
-input[type="submit"] {
-    width: 100%;
-    background-color: var(--clr-camel-beige);
-    color: white;
-    border: none;
-    padding: 18px;
-    border-radius: var(--radius-round);
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
-
-input[type="submit"]:hover {
-    background-color: var(--clr-hump-brown);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-}
-
-/* Abmelden Button (oben in der Nav) */
-nav {
+body::before, body::after {
+    content: '';
     position: absolute;
-    top: 20px;
-    right: 20px;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(197, 164, 126, 0.12) 0%, rgba(245, 241, 234, 0) 70%);
+    z-index: 0;
+    pointer-events: none;
 }
 
-#abmelden {
-    background-color: transparent !important;
-    color: var(--clr-text-deep) !important;
-    border: 2px solid var(--clr-hump-brown) !important;
-    padding: 8px 20px !important;
-    width: auto !important;
-    font-size: 0.8rem !important;
+body::before {
+    top: -200px;
+    left: -200px;
 }
 
-#abmelden:hover {
-    background-color: var(--clr-hump-brown) !important;
-    color: white !important;
+body::after {
+    bottom: -200px;
+    right: -200px;
 }
 
-/* Das Formular, das die Menü-Buttons enthält */
-form {
+
+.header-nav {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 10;
+}
+
+.btn-logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    color: var(--clr-text-main);
+    padding: 10px 20px;
+    border-radius: var(--radius-round);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    transition: var(--transition);
+}
+
+.btn-logout svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #cc6666;
+    border-color: #cc6666;
+    color: white;
+    box-shadow: 0 6px 15px rgba(204, 102, 102, 0.25);
+    transform: translateY(-1px);
+}
+
+.btn-logout:hover svg {
+    transform: translateX(3px);
+}
+
+/* Menu Layout Container */
+.menu-container {
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    z-index: 5;
+}
+
+/* Luxury Menu Card */
+.menu-card {
+    background: var(--clr-surface);
+    padding: 50px 40px;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+}
+
+.menu-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 30px 60px rgba(158, 125, 92, 0.22);
+}
+
+/* Logo Design */
+.hotel-logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-icon {
+    font-size: 2.2rem;
+    display: inline-block;
+    filter: drop-shadow(0 4px 6px rgba(158, 125, 92, 0.2));
+    animation: camelWiggle 5s ease-in-out infinite;
+}
+
+.hotel-logo h2 {
+    font-family: var(--font-heading);
+    color: var(--clr-primary-dark);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-top: 5px;
+    letter-spacing: 0.5px;
+}
+
+.logo-divider {
+    width: 40px;
+    height: 3px;
+    background-color: var(--clr-primary);
+    margin: 12px auto 0 auto;
+    border-radius: 2px;
+}
+
+/* Header Text */
+h1 {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--clr-text-main);
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+/* Welcome Box */
+.welcome-box {
+    padding: 16px 20px;
+    border-radius: var(--radius-input);
+    margin-bottom: 30px;
+    text-align: left;
+    position: relative;
+    border: 1px solid var(--clr-border);
+    animation: fadeIn 0.4s ease;
+}
+
+.welcome-box.logged-in {
+    background-color: var(--clr-primary-light);
+    border-color: rgba(197, 164, 126, 0.2);
+}
+
+.welcome-box.guest {
+    background-color: #faf9f6;
+}
+
+.welcome-badge {
+    position: absolute;
+    top: -10px;
+    right: 15px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: var(--radius-round);
+    background-color: var(--clr-primary-dark);
+    color: white;
+}
+
+.welcome-box.guest .welcome-badge {
+    background-color: var(--clr-text-muted);
+}
+
+.welcome-text {
+    font-size: 0.95rem;
+    color: var(--clr-text-main);
+    line-height: 1.5;
+}
+
+.user-name {
+    color: var(--clr-primary-dark);
+    font-weight: 700;
+}
+
+/* Menu Actions Grid */
+.menu-form {
+    width: 100%;
+}
+
+.menu-grid {
     display: flex;
     flex-direction: column;
-    /* Dieser Wert bestimmt den Platz ZWISCHEN den Buttons */
-    gap: 30px !important; 
-    margin-top: 40px;
+    gap: 16px;
 }
 
-/* Die Buttons im Menü selbst */
-input[type="submit"] {
-    margin-bottom: 10px; /* Zusätzliche Sicherheit für den Abstand */
+/* Luxury Menu Button Option */
+.btn-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: #faf9f6;
+    border: 1px solid var(--clr-border);
+    padding: 16px 24px;
+    border-radius: var(--radius-input);
+    cursor: pointer;
+    text-align: left;
+    transition: var(--transition);
+    width: 100%;
+}
+
+.btn-icon {
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(158, 125, 92, 0.08);
+    transition: var(--transition);
+}
+
+.btn-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.btn-title {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--clr-text-main);
+    transition: var(--transition);
+}
+
+.btn-desc {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--clr-text-muted);
+    transition: var(--transition);
+}
+
+/* Button Hover State */
+.btn-menu:hover {
+    background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-primary-dark) 100%);
+    border-color: var(--clr-primary-dark);
+    box-shadow: 0 10px 20px rgba(158, 125, 92, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-menu:hover .btn-icon {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+}
+
+.btn-menu:hover .btn-title {
+    color: white;
+}
+
+.btn-menu:hover .btn-desc {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.btn-menu:active {
+    transform: translateY(0);
+}
+
+/* Keyframes */
+@keyframes camelWiggle {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(8deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .menu-card {
+        padding: 40px 20px;
+    }
+    
+    .btn-menu {
+        padding: 14px 18px;
+        gap: 14px;
+    }
+    
+    .btn-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+    
+    .btn-title {
+        font-size: 0.95rem;
+    }
+    
+    .btn-desc {
+        font-size: 0.75rem;
+    }
+    
+    .header-nav {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-bottom: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    body {
+        justify-content: flex-start;
+        padding-top: 10px;
+    }
 }
