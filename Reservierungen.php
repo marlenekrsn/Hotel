@@ -8,18 +8,39 @@ if (empty($_SESSION['bid'])) {
             die(" <a href=\"login.php\"> Zum Login</a>");
 }else{
 
-    require_once("dbVerbindung.php");
+    if ($_SESSION["bid"] == 1) {
 
-    $sql = "SELECT benutzer.vorname, benutzer.nachname, 
+        require_once("dbVerbindung.php");
+        
+        $sql = "SELECT benutzer.vorname, benutzer.nachname, 
                 reservierungen.einzelzimmer, reservierungen.doppelzimmer, 
                 reservierungen.dreierzimmer, reservierungen.viererzimmer, 
                 reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis 
             FROM reservierungen 
-            INNER JOIN benutzer ON reservierungen.bid = benutzer.bid 
-            WHERE reservierungen.bid = :bid";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['bid' => $_SESSION["bid"]]);
-    $reservierungen = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            INNER JOIN benutzer ON reservierungen.bid = benutzer.bid
+            order by reservierungen.anreise desc";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $reservierungen = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }else{
+
+        require_once("dbVerbindung.php");
+
+        $sql = "SELECT benutzer.vorname, benutzer.nachname, 
+                    reservierungen.einzelzimmer, reservierungen.doppelzimmer, 
+                    reservierungen.dreierzimmer, reservierungen.viererzimmer, 
+                    reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis 
+                FROM reservierungen 
+                INNER JOIN benutzer ON reservierungen.bid = benutzer.bid 
+                WHERE reservierungen.bid = :bid
+                order by reservierungen.anreise desc";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['bid' => $_SESSION["bid"]]);
+        $reservierungen = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    
     
 }
 ?>
