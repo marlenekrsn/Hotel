@@ -91,7 +91,8 @@ if (empty($_SESSION['bid'])) {
             <td><?=($row["viererzimmer"])?></td>
             <td><?=($row["anreise"])?></td>
             <td><?=($row["abreise"])?></td>
-            <td><?=($row["gesamtpreis"])?></td>
+            <td><?=($row["gesamtpreis"]); 
+                    echo",00€";?></td>
         </tr>
         <?php endforeach; ?>
     </tbody>
