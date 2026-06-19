@@ -61,6 +61,11 @@ if (empty($_SESSION['bid'])) {
         if(isset($_POST["zurueck"])){
             header("location:Menue.php");
         }
+        /*
+        $datumString = "2026-06-19"; // ISO-Format
+        $timestamp = strtotime($datumString);
+        $neuesFormat = date("d.m.Y", $timestamp); // Ergebnis: "19.06.2026"
+        */
     ?>
 </nav>
 <body>
@@ -91,10 +96,11 @@ if (empty($_SESSION['bid'])) {
             <td><?=($row["viererzimmer"])?></td>
             <td><?=($row["anreise"])?></td>
             <td><?=($row["abreise"])?></td>
-            <td><?=($row["gesamtpreis"]); 
-                    echo",00€";?></td>
+            <td><?=($row["gesamtpreis"]);?></td>
         </tr>
         <?php endforeach; ?>
+
+
     </tbody>
     </table>
 </body>

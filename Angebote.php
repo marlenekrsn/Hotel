@@ -20,6 +20,7 @@
         //echo $diff->days;
         
 
+
         if (empty($_SESSION['bid'])) {
             echo "Bitte melden Sie sich an!";
 
@@ -27,52 +28,55 @@
             if(empty($datumvon) || empty($datumbis)){
                 echo"Bitte geben Sie alle Daten ein!";
             }else{
-
-                if (empty($einzelzimmer) && empty($doppelzimmer) && empty($dreierzimmer) && empty($viererzimmer)) {
-                    echo "Bitte füllen Sie alles aus!";
+                if ($diff->days <= 0) {
+                    echo"Bitte geben Sie ein gültiges Datum ein!";
                 }else{
-                    if (empty($einzelzimmer)) {
-                        $einzelzimmer = 0;
-                    }if(empty($doppelzimmer)) {
-                        $doppelzimmer = 0;
-                    }if(empty($dreierzimmer)) {
-                        $dreierzimmer = 0;
-                    }if(empty($viererzimmer)) {
-                        $viererzimmer = 0;
+
+                    if (empty($einzelzimmer) && empty($doppelzimmer) && empty($dreierzimmer) && empty($viererzimmer)) {
+                        echo "Bitte füllen Sie alles aus!";
+                    }else{
+                        if (empty($einzelzimmer)) {
+                            $einzelzimmer = 0;
+                        }if(empty($doppelzimmer)) {
+                            $doppelzimmer = 0;
+                        }if(empty($dreierzimmer)) {
+                            $dreierzimmer = 0;
+                        }if(empty($viererzimmer)) {
+                            $viererzimmer = 0;
+                        }
+                        $gesamtpreis = 0;
+                        
+
+                        $gesamtpreis = (($einzelzimmer * $preiseinzel) + ($doppelzimmer * $preisdoppel) + ($dreierzimmer * $preisdreier) + ($viererzimmer * $preisvierer)) * $diff->days;
+                        
+                        //nächstes Mal von Datenbank speichern
+                        $_SESSION['anreise'] = $datumvon;
+                        $_SESSION['abreise'] = $datumbis;
+                        $_SESSION['gesamtpreis'] = $gesamtpreis;
+                        $_SESSION['einzelzimmer'] = $einzelzimmer;
+                        $_SESSION['doppelzimmer'] = $doppelzimmer;
+                        $_SESSION['dreierzimmer'] = $dreierzimmer;
+                        $_SESSION['viererzimmer'] = $viererzimmer;
+                    
+                        //!==
+                        require_once('dbVerbindung.php');
+
+                        try {
+
+                            $sql = "INSERT INTO reservierungen(bid, anreise, abreise, gesamtpreis, einzelzimmer, doppelzimmer, dreierzimmer, viererzimmer) VALUES (:bid, :anreise, :abreise, :gesamtpreis, :einzelzimmer, :doppelzimmer, :dreierzimmer, :viererzimmer)";
+                            $stmt = $pdo->prepare($sql);
+
+                            $stmt->execute(["bid" =>$_SESSION['bid'], 'anreise' => $datumvon, 'abreise' => $datumbis, 'gesamtpreis' => $gesamtpreis, 'einzelzimmer' => $einzelzimmer, 'doppelzimmer' => $doppelzimmer, 'dreierzimmer' => $dreierzimmer, 'viererzimmer' => $viererzimmer]);
+                                //$message = "Reservierung erfolgreich <a href=\"reservierungen.php\">Zu Ihrer Reservierung</a>";
+                                
+                            echo "Erfolgreich gebucht!";
+
+                        
+                        } catch (PDOException $e) {
+                            echo $e->getMessage();
+                            die("FEHLER beim Speichern der Daten in der Datenbank!!");
+                        }
                     }
-                    $gesamtpreis = 0;
-                    
-
-                    $gesamtpreis = (($einzelzimmer * $preiseinzel) + ($doppelzimmer * $preisdoppel) + ($dreierzimmer * $preisdreier) + ($viererzimmer * $preisvierer)) * $diff->days;
-                    
-                    //nächstes Mal von Datenbank speichern
-                    $_SESSION['anreise'] = $datumvon;
-                    $_SESSION['abreise'] = $datumbis;
-                    $_SESSION['gesamtpreis'] = $gesamtpreis;
-                    $_SESSION['einzelzimmer'] = $einzelzimmer;
-                    $_SESSION['doppelzimmer'] = $doppelzimmer;
-                    $_SESSION['dreierzimmer'] = $dreierzimmer;
-                    $_SESSION['viererzimmer'] = $viererzimmer;
-                
-                    //!==
-                    require_once('dbVerbindung.php');
-
-                    try {
-
-                        $sql = "INSERT INTO reservierungen(bid, anreise, abreise, gesamtpreis, einzelzimmer, doppelzimmer, dreierzimmer, viererzimmer) VALUES (:bid, :anreise, :abreise, :gesamtpreis, :einzelzimmer, :doppelzimmer, :dreierzimmer, :viererzimmer)";
-                        $stmt = $pdo->prepare($sql);
-
-                        $stmt->execute(["bid" =>$_SESSION['bid'], 'anreise' => $datumvon, 'abreise' => $datumbis, 'gesamtpreis' => $gesamtpreis, 'einzelzimmer' => $einzelzimmer, 'doppelzimmer' => $doppelzimmer, 'dreierzimmer' => $dreierzimmer, 'viererzimmer' => $viererzimmer]);
-                            //$message = "Reservierung erfolgreich <a href=\"reservierungen.php\">Zu Ihrer Reservierung</a>";
-                            
-                        echo "Erfolgreich gebucht!"; 
-
-                    
-                    } catch (PDOException $e) {
-                        echo $e->getMessage();
-                        die("FEHLER beim Speichern der Daten in der Datenbank!!");
-                    }
-
                 }
 
             }
