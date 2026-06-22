@@ -244,6 +244,7 @@ tbody td:nth-of-type(9) {
     tbody td:nth-of-type(7):before { content: "Datum von"; }
     tbody td:nth-of-type(8):before { content: "Datum bis"; }
     tbody td:nth-of-type(9):before { content: "Preis"; }
+    tbody td:nth-of-type(10):before { content: "Rechnung"; }
 }
 
 @media (max-width: 600px) {
@@ -267,3 +268,17 @@ tbody td:nth-of-type(9) {
         padding-top: 10px;
     }
 }
+
+/* Rechnung Link Styling */
+.rechnung-link {
+    color: var(--clr-primary-dark);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    border-bottom: 1.5px solid transparent;
+}
+
+.rechnung-link:hover {
+    color: var(--clr-primary);
+    border-bottom-color: var(--clr-primary);
+}

@@ -10,8 +10,8 @@ if (empty($_SESSION['bid'])) {
     exit;
 }
 
-// 3. Prüfen: Wenn keine Rechnungsnummer da ist, zurück zum Menü
-if (empty($_GET['rechnungs_nummer'])) {
+// 3. Prüfen: Wenn keine Reservierungs-ID da ist, zurück zum Menü
+if (empty($_GET['rid'])) {
     header("Location: Menue.php");
     exit;
 }
@@ -21,21 +21,33 @@ define('FPDF_FONTPATH', dirname(__FILE__) . '/font/font/');
 require('fpdf.php');
 require_once('dbVerbindung.php');
 
-$req_rechnungs_nummer = $_GET['rechnungs_nummer'];
+$req_rid = (int)$_GET['rid'];
 
 // 4. DATEN HOLEN
 $sql = "SELECT r.*, b.vorname, b.nachname, b.strasse, b.plz, b.ort 
         FROM reservierungen r
         INNER JOIN benutzer b ON r.bid = b.bid
-        WHERE r.rechnungs_nummer = :rechnungs_nummer";
+        WHERE r.rid = :rid";
 
 $stmt = $pdo->prepare($sql);
-$stmt->execute(['rechnungs_nummer' => $req_rechnungs_nummer]);
+$stmt->execute(['rid' => $req_rid]);
 $daten = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$daten) {
     ob_end_clean();
-    die("Rechnung nicht gefunden.");
+    die("Reservierung nicht gefunden.");
+}
+
+// Falls rechnungs_nummer noch nicht gesetzt ist, generieren und speichern wir sie jetzt!
+if (empty($daten['rechnungs_nummer'])) {
+    $rechnungs_nummer = 'RE-' . date('Ymd') . '-' . $req_rid . '-' . rand(10, 99);
+    
+    // In der Datenbank speichern
+    $updateSql = "UPDATE reservierungen SET rechnungs_nummer = :rechnungs_nummer WHERE rid = :rid";
+    $updateStmt = $pdo->prepare($updateSql);
+    $updateStmt->execute(['rechnungs_nummer' => $rechnungs_nummer, 'rid' => $req_rid]);
+    
+    $daten['rechnungs_nummer'] = $rechnungs_nummer;
 }
 
 if ($_SESSION['bid'] != 1 && $_SESSION['bid'] != $daten['bid']) {
@@ -171,7 +183,7 @@ if (!is_dir(dirname(__FILE__) . '/Rechnungen')) {
 // PDF im Ordner "Rechnungen" speichern
 $pdf->Output('F', dirname(__FILE__) . '/Rechnungen/Rechnung_' . $rechnungs_nummer . '.pdf');
 
-// Zurück zum Hauptmenü weiterleiten
-header("Location: Menue.php");
+// PDF direkt im Browser anzeigen
+$pdf->Output('I', 'Rechnung_' . $rechnungs_nummer . '.pdf');
 exit;
 ?>

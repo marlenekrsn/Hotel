@@ -19,7 +19,14 @@
         $diff = $start->diff($end);
         //echo $diff->days;
         
+        /*$heute = new DateTime();
+        $heute->setTime(0, 0, 0);
 
+        if ($datumvon > $heute) {
+            echo "<p style='color: red;'>Fehler: Das Anreisedatum liegt in der Vergangenheit.</p>";
+        } elseif ($datumbis <= $datumvon) {
+            echo "<p style='color: red;'>Fehler: Das Abreisedatum muss mindestens einen Tag nach dem Anreisedatum liegen.</p>";
+        }*/
 
         if (empty($_SESSION['bid'])) {
             echo "Bitte melden Sie sich an!";
@@ -27,6 +34,7 @@
         }else{
             if(empty($datumvon) || empty($datumbis)){
                 echo"Bitte geben Sie alle Daten ein!";
+                
             }else{
                 if ($diff->days <= 0) {
                     echo"Bitte geben Sie ein gültiges Datum ein!";
@@ -58,7 +66,6 @@
                         $_SESSION['dreierzimmer'] = $dreierzimmer;
                         $_SESSION['viererzimmer'] = $viererzimmer;
                     
-                        //!==
                         require_once('dbVerbindung.php');
 
                         try {

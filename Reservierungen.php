@@ -15,7 +15,7 @@ if (empty($_SESSION['bid'])) {
         $sql = "SELECT benutzer.vorname, benutzer.nachname, 
                 reservierungen.einzelzimmer, reservierungen.doppelzimmer, 
                 reservierungen.dreierzimmer, reservierungen.viererzimmer, 
-                reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis, reservierungen.reservierungs_nummer 
+                reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis, reservierungen.rechnungs_nummer, reservierungen.rid 
             FROM reservierungen 
             INNER JOIN benutzer ON reservierungen.bid = benutzer.bid
             order by reservierungen.anreise desc";
@@ -29,7 +29,7 @@ if (empty($_SESSION['bid'])) {
         $sql = "SELECT benutzer.vorname, benutzer.nachname, 
                     reservierungen.einzelzimmer, reservierungen.doppelzimmer, 
                     reservierungen.dreierzimmer, reservierungen.viererzimmer, 
-                    reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis, reservierungen.reservierungs_nummer
+                    reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis, reservierungen.rechnungs_nummer, reservierungen.rid
                 FROM reservierungen 
                 INNER JOIN benutzer ON reservierungen.bid = benutzer.bid 
                 WHERE reservierungen.bid = :bid
@@ -79,6 +79,7 @@ if (empty($_SESSION['bid'])) {
         <th>Datum von</th>
         <th>Datum bis</th>
         <th>Preis</th>
+        <th>Rechnung</th>
         </tr>
     </thead>
     <tbody>
@@ -93,6 +94,11 @@ if (empty($_SESSION['bid'])) {
             <td><?=($row["anreise"])?></td>
             <td><?=($row["abreise"])?></td>
             <td><?=($row["gesamtpreis"]);?></td>
+            <td>
+                <a href="RechnungErstellen.php?rid=<?= $row['rid'] ?>" target="_blank" class="rechnung-link">
+                    <?= empty($row["rechnungs_nummer"]) ? "Erstellen" : "Öffnen" ?>
+                </a>
+            </td>
         </tr>
         <?php endforeach; ?>
 

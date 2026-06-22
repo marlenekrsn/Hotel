@@ -4,7 +4,7 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $email = trim($_POST['email']);
+    $email = htmlspecialchars(trim($_POST['email']));
     $passwort = $_POST['passwort'];
 
     
@@ -20,21 +20,18 @@
     if ($user && password_verify($passwort, $user['passwort'])) {
         //User darf sich einloggen
 
-        //SICHERHEITS-UPDATE 
+
         //prüfen, ob der Hash veraltet ist (wenn ja, erneuern und in der DB speichern)
         if (password_needs_rehash($user['passwort'], PASSWORD_DEFAULT)) {
 
             //neuen Hash generien
             $newHash = password_hash($passwort, PASSWORD_DEFAULT);
 
-            //neuen Hash in der DB speichern
-            $updateStmt = $pdo->prepare("UPDATE users SET passwort = :passwort WHERE id = :id");
-            $updateStmt->execute(['passwort' => $newHash, 'id' => $user['id']]);
+            $updateStmt = $pdo->prepare("UPDATE benutzer SET passwort = :passwort WHERE bid = :bid");
+            $updateStmt->execute(['passwort' => $newHash, 'bid' => $user['bid']]);
 
 
         }
-        //Session setzen (Schutz vor Session Fication)
-        session_regenerate_id(true);
 
 
         //Die Session mit Daten befüllen
@@ -45,10 +42,7 @@
         $_SESSION['postleitzahl'] = $user['postleitzahl'];
         $_SESSION['ort'] = $user['ort'];
         $_SESSION['email'] = $user['email'];
-        $_SESSION['passwort'] = $user['passwort'];
-        
-        
-        
+        $_SESSION['passwort'] = $user['passwort'];  
 
         header('Location: menue.php');
 

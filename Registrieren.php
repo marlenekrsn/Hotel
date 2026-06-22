@@ -4,14 +4,14 @@
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
     
-        $vorname = trim($_POST["vorname"]);
-        $nachname = trim($_POST["nachname"]);
-        $strasse = trim($_POST["strasse"]);
-        $plz = $_POST["plz"];   
-        $ort = trim($_POST["ort"]);
-        $email = trim($_POST["email"]);
-        $passwort = trim($_POST["passwort"]);
-        $passwort2 = trim($_POST["passwort2"]);
+        $vorname= htmlspecialchars(trim($_POST["vorname"]));
+        $nachname= htmlspecialchars(trim($_POST["nachname"]));
+        $strasse= htmlspecialchars(trim($_POST["strasse"]));
+        $plz= htmlspecialchars(trim($_POST["plz"]));
+        $ort= htmlspecialchars(trim($_POST["ort"]));
+        $email= htmlspecialchars(trim($_POST["email"]));
+        $passwort= trim($_POST["passwort"]);
+        $passwort2= trim($_POST["passwort2"]);
 
         if (!empty($vorname) && !empty($nachname) && !empty($strasse) && !empty($plz) && !empty($ort) && !empty($email) && !empty($passwort) && !empty($passwort2)) {
             if ($passwort !== $passwort2) {
@@ -83,20 +83,6 @@
             
             <h3>Mitglied werden</h3>
             <p class="subtitle">Registrieren Sie ein neues Konto, um Ihren Traumurlaub zu buchen.</p>
-
-            <?php if (isset($error_msg)): ?>
-                <div class="error-box">
-                    <span class="error-icon">⚠️</span>
-                    <span class="error-text"><?= htmlspecialchars($error_msg) ?></span>
-                </div>
-            <?php endif; ?>
-            
-            <?php if (isset($success_msg)): ?>
-                <div class="success-box">
-                    <span class="success-icon">✨</span>
-                    <span class="success-text"><?= htmlspecialchars($success_msg) ?></span>
-                </div>
-            <?php endif; ?>
 
             <form action="" method="post" class="registration-form">
                 <div class="form-grid">
