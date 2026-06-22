@@ -15,8 +15,7 @@ if (empty($_SESSION['bid'])) {
         $sql = "SELECT benutzer.vorname, benutzer.nachname, 
                 reservierungen.einzelzimmer, reservierungen.doppelzimmer, 
                 reservierungen.dreierzimmer, reservierungen.viererzimmer, 
-                reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis 
-            FROM reservierungen 
+                reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis
             INNER JOIN benutzer ON reservierungen.bid = benutzer.bid
             order by reservierungen.anreise desc";
         $stmt = $pdo->prepare($sql);
@@ -29,7 +28,7 @@ if (empty($_SESSION['bid'])) {
         $sql = "SELECT benutzer.vorname, benutzer.nachname, 
                     reservierungen.einzelzimmer, reservierungen.doppelzimmer, 
                     reservierungen.dreierzimmer, reservierungen.viererzimmer, 
-                    reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis 
+                    reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis
                 FROM reservierungen 
                 INNER JOIN benutzer ON reservierungen.bid = benutzer.bid 
                 WHERE reservierungen.bid = :bid
@@ -78,6 +77,7 @@ if (empty($_SESSION['bid'])) {
         <th>Datum von</th>
         <th>Datum bis</th>
         <th>Preis</th>
+        <th>Rechnung</th>
         </tr>
     </thead>
     <tbody>
@@ -93,6 +93,7 @@ if (empty($_SESSION['bid'])) {
             <td><?=($row["abreise"])?></td>
             <td><?=($row["gesamtpreis"]); 
                     echo",00€";?></td>
+            <td><?=($row["gesamtpreis"])?>,00€</td>
         </tr>
         <?php endforeach; ?>
     </tbody>

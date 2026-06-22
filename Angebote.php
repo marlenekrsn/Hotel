@@ -45,7 +45,7 @@
 
                     $gesamtpreis = (($einzelzimmer * $preiseinzel) + ($doppelzimmer * $preisdoppel) + ($dreierzimmer * $preisdreier) + ($viererzimmer * $preisvierer)) * $diff->days;
                     
-                    //nächstes Mal von Datenbank speichern
+                    // In der Datenbank speichern und Rechnung generieren
                     $_SESSION['anreise'] = $datumvon;
                     $_SESSION['abreise'] = $datumbis;
                     $_SESSION['gesamtpreis'] = $gesamtpreis;
@@ -58,16 +58,31 @@
                     require_once('dbVerbindung.php');
 
                     try {
+                        // 1. Rechnungsnummer generieren und in der Variable SPEICHERN
+                        $rechnungs_nummer = "RE-" . date("Y") . "-" . rand(1000, 9999);
 
-                        $sql = "INSERT INTO reservierungen(bid, anreise, abreise, gesamtpreis, einzelzimmer, doppelzimmer, dreierzimmer, viererzimmer) VALUES (:bid, :anreise, :abreise, :gesamtpreis, :einzelzimmer, :doppelzimmer, :dreierzimmer, :viererzimmer)";
+                        // 2. SQL-Statement vorbereiten
+                        $sql = "INSERT INTO reservierungen (bid, anreise, abreise, gesamtpreis, einzelzimmer, doppelzimmer, dreierzimmer, viererzimmer, rechnungs_nummer) 
+                            VALUES (:bid, :anreise, :abreise, :gesamtpreis, :einzelzimmer, :doppelzimmer, :dreierzimmer, :viererzimmer, :rechnungs_nummer)";
                         $stmt = $pdo->prepare($sql);
 
-                        $stmt->execute(["bid" =>$_SESSION['bid'], 'anreise' => $datumvon, 'abreise' => $datumbis, 'gesamtpreis' => $gesamtpreis, 'einzelzimmer' => $einzelzimmer, 'doppelzimmer' => $doppelzimmer, 'dreierzimmer' => $dreierzimmer, 'viererzimmer' => $viererzimmer]);
-                            //$message = "Reservierung erfolgreich <a href=\"reservierungen.php\">Zu Ihrer Reservierung</a>";
+                        // 3. Fehler behoben: Mit $rechnungs_nummer wird die Variable jetzt übergeben
+                        $stmt->execute([
+                            "bid" => $_SESSION['bid'], 
+                            'anreise' => $datumvon, 
+                            'abreise' => $datumbis, 
+                            'gesamtpreis' => $gesamtpreis, 
+                            'einzelzimmer' => $einzelzimmer, 
+                            'doppelzimmer' => $doppelzimmer, 
+                            'dreierzimmer' => $dreierzimmer, 
+                            'viererzimmer' => $viererzimmer, 
+                            'rechnungs_nummer' => $rechnungs_nummer
+                        ]);
                             
-                        echo "Erfolgreich gebucht!"; 
+                        // 4. Weiterleitung zur automatischen PDF-Erstellung
+                        header("Location: RechnungErstellen.php?rechnungs_nummer=" . $rechnungs_nummer);
+                        exit;
 
-                    
                     } catch (PDOException $e) {
                         echo $e->getMessage();
                         die("FEHLER beim Speichern der Daten in der Datenbank!!");
