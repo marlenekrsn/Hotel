@@ -15,7 +15,7 @@ if (empty($_SESSION['bid'])) {
         $sql = "SELECT benutzer.vorname, benutzer.nachname, 
                 reservierungen.einzelzimmer, reservierungen.doppelzimmer, 
                 reservierungen.dreierzimmer, reservierungen.viererzimmer, 
-                reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis 
+                reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis, reservierungen.reservierungs_nummer 
             FROM reservierungen 
             INNER JOIN benutzer ON reservierungen.bid = benutzer.bid
             order by reservierungen.anreise desc";
@@ -29,7 +29,7 @@ if (empty($_SESSION['bid'])) {
         $sql = "SELECT benutzer.vorname, benutzer.nachname, 
                     reservierungen.einzelzimmer, reservierungen.doppelzimmer, 
                     reservierungen.dreierzimmer, reservierungen.viererzimmer, 
-                    reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis 
+                    reservierungen.anreise, reservierungen.abreise, reservierungen.gesamtpreis, reservierungen.reservierungs_nummer
                 FROM reservierungen 
                 INNER JOIN benutzer ON reservierungen.bid = benutzer.bid 
                 WHERE reservierungen.bid = :bid
@@ -61,11 +61,7 @@ if (empty($_SESSION['bid'])) {
         if(isset($_POST["zurueck"])){
             header("location:Menue.php");
         }
-        /*
-        $datumString = "2026-06-19"; // ISO-Format
-        $timestamp = strtotime($datumString);
-        $neuesFormat = date("d.m.Y", $timestamp); // Ergebnis: "19.06.2026"
-        */
+        
     ?>
 </nav>
 <body>
